@@ -16,3 +16,6 @@ e2e folder: End to end testing scripts
 Its a super set to JS. Features like classes, interfaces, types etc. So we can have type of variable here instead of dynamic variables in js. So code gets checked in compile time and not at run time. CLI takes care of converting ts to js that browser can understand
 
 - Behing the scene, CLI uses webpack to bring ts, js, css etc together. We can add our custom style to ang4 project, by changing the config file angular-cli.json. So to use bootstrap, we install it using npm and then add to the json style section
+
+-CSS @import is relative to the current working directory.
+So using the prefix ~ at the start of the path tells the Webpack loader to resolve the import "like a module".
