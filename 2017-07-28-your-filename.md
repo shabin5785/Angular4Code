@@ -1,0 +1,1 @@
+- Angular is a JS framework. It helps mainly to build single page applications.
