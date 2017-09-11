@@ -2,10 +2,13 @@ import { EventEmitter, Injectable } from '@angular/core';
 
 import { Recipe } from './recipe.model';
 import { Ingredient } from '../shared/ingredient.model';
+import { Subject } from 'rxjs/Subject';
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
 
 @Injectable()
 export class RecipeService {
+
+  recipesChanges = new Subject<Recipe[]>();
 
   private recipes: Recipe[] = [
     new Recipe(
@@ -37,5 +40,22 @@ export class RecipeService {
 
   getRecipe(id:number){
     return this.recipes[id];
+  }
+
+  addRecipe( recipe : Recipe){
+    this.recipes.push(recipe);
+    //above wont work by default as in getter method we are returning a slice. 
+    // so needs the subscrition below. else using methods wont see new data. 
+    this.recipesChanges.next(this.recipes.slice());
+  }
+
+  updateRecipe( index : number, recipe : Recipe){
+    this.recipes[index]=recipe;
+    this.recipesChanges.next(this.recipes.slice());
+  }
+
+  deleteRecipe(index: number){
+    this.recipes.splice(index, 1);
+    this.recipesChanges.next(this.recipes.slice());
   }
 }
